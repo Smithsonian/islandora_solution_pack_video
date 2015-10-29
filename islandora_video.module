@@ -136,7 +136,10 @@ function islandora_video_islandora_sp_videoCModel_islandora_ingest_steps() {
  * Implements hook_islandora_CMODEL_PID_derivative().
  */
 function islandora_video_islandora_sp_videoCModel_islandora_derivative() {
-  $derivatives = array();
+	$derivatives = array();
+  if (variable_get('islandora_video_defer_derivatives_on_ingest', FALSE)) {
+	  return $derivatives;
+	}	
   if (variable_get('islandora_video_make_thumbnail_locally', TRUE)) {
     $derivatives[] = array(
       'source_dsid' => 'OBJ',

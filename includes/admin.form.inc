@@ -22,7 +22,14 @@ function islandora_video_admin(array $form, array &$form_state) {
   // Get viewer table.
   $viewer_table = islandora_viewers_form('islandora_video_viewers', 'video/mp4');
   $form += $viewer_table;
-
+  $form += array(
+    'islandora_video_defer_derivatives_on_ingest' => array(
+      '#type' => 'checkbox',
+      '#title' => t('Defer video derivative generation during ingest'),
+      '#description' => t('Prevent video derivatives from running during ingest,
+            useful if derivatives are to be created by an external service.'),
+      '#default_value' => variable_get('islandora_video_defer_derivatives_on_ingest', FALSE),
+  )
   // Viewer stuff.
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['reset'] = array(
@@ -120,6 +127,8 @@ function islandora_video_admin_submit($form, &$form_state) {
  * Form validation ensuring the selected ffmpeg options are available.
  */
 function islandora_video_admin_validate($form, &$form_state) {
+ // if creation of derivatives is deferred on ingest, don't check for valid audio codecs
+ if ($form_state['values']['islandora_video_defer_derivatives_on_ingest'] == TRUE} return; 
   // Ensure the mp4 audio codec is enabled.
   $raw_value = $form_state['values']['islandora_video_mp4_audio_codec'];
   if ($raw_value) {
