@@ -24,7 +24,7 @@ function islandora_video_upload_form(array $form, array &$form_state) {
       '#title' => t('Video'),
       '#type' => 'managed_file',
       '#required' => TRUE,
-      '#description' => t('Select video to upload.<br/>Files must be less than <b>@size MB.</b><br/>Allowed file types: <b>@ext.</b>', array('@size' => $upload_size, '@ext' => $extensions[0])),
+      '#description' => t('Select video to upload.<br/>Files must be less than <strong>@size MB.</strong><br/>Allowed file types: <strong>@ext.</strong>', array('@size' => $upload_size, '@ext' => $extensions[0])),
       '#default_value' => isset($form_state['values']['file']) ? $form_state['values']['file'] : NULL,
       '#upload_location' => 'temporary://',
       '#upload_validators' => array(
@@ -45,7 +45,7 @@ function islandora_video_upload_form(array $form, array &$form_state) {
  *   The drupal form state.
  */
 function islandora_video_upload_form_submit(array $form, array &$form_state) {
-  $object = $form_state['islandora']['objects'][0];
+  $object = islandora_ingest_form_get_object($form_state);
   if (empty($object['OBJ'])) {
     $ds = $object->constructDatastream('OBJ', 'M');
     $object->ingestDatastream($ds);
