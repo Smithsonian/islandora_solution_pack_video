@@ -134,7 +134,7 @@ function islandora_video_admin_submit($form, &$form_state) {
       variable_del('islandora_video_play_obj');
       variable_del('islandora_video_max_obj_size');
       variable_del('islandora_video_defer_derivatives_on_ingest');
-			break;
+      break;
   }
 }
 
