@@ -22,6 +22,8 @@ function islandora_video_admin(array $form, array &$form_state) {
   // Get viewer table.
   $viewer_table = islandora_viewers_form('islandora_video_viewers', 'video/mp4');
   $form += $viewer_table;
+
+  //Derivatives information
   $form += array(
     'islandora_video_defer_derivatives_on_ingest' => array(
       '#type' => 'checkbox',
@@ -29,6 +31,7 @@ function islandora_video_admin(array $form, array &$form_state) {
       '#description' => t('Prevent video derivatives from running during ingest, useful if derivatives are to be created by an external service. This will also disable the check for a valid mp4 codec.'),
       '#default_value' => variable_get('islandora_video_defer_derivatives_on_ingest', FALSE),
   ));
+
   // Viewer stuff.
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['reset'] = array(
@@ -113,6 +116,7 @@ function islandora_video_admin(array $form, array &$form_state) {
     '#description' => t("Set a maximum size (in megabytes) for sending the OBJ datastream to the player."),
     '#default_value' => variable_get('islandora_video_max_obj_size', '500'),
   );
+
   return system_settings_form($form);
 }
 
